@@ -1,12 +1,12 @@
+import math
 import cv2
 import numpy as np
 import pyautogui
-import math
 (camx, camy) = (320, 240)
 # lower and upper bound values for the color green
 # just change hue value if color change reqd
-lowerBound = np.array([33, 80, 40])  # h,s,v
-upperBound = np.array([102, 255, 255])  # h,s,v
+lowerGreen = np.array([33, 80, 40])  # h,s,v
+upperGreen = np.array([102, 255, 255])  # h,s,v
 center = 0
 kernelOpen = np.ones((5, 5))
 kernelClose = np.ones((10, 10))
@@ -23,8 +23,8 @@ while cam.isOpened():
 
     # converting BGR to HSV
     imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    mask = cv2.inRange(imgHSV, lowerBound, upperBound)
-
+    mask = cv2.inRange(imgHSV, lowerGreen, upperGreen)
+   
     # morphology
     maskOpen = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernelOpen)
     maskClose = cv2.morphologyEx(maskOpen, cv2.MORPH_CLOSE, kernelClose)
@@ -83,8 +83,8 @@ while cam.isOpened():
             cx = int(x+w/2)
             cy = int(y+h/2)
             cv2.circle(img, (cx, cy), int((w+h)/4), (0, 0, 255), 2)
-    elif(len(contours) == 0):
-        pyautogui.press('down', presses=1)
+    #elif(len(contours) == 0):
+        #pyautogui.press('down', presses=1)
 
     cv2.imshow("Cam", img)
     if cv2.waitKey(1) == ord('q'):

@@ -1,0 +1,1 @@
+pylint --extension-pkg-whitelist=wx
