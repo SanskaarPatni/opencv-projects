@@ -51,8 +51,6 @@ while cam.isOpened():
         pyautogui.keyDown('up')
         x, y, w, h = cv2.boundingRect(contoursR[0])
         cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
-    else:
-        pyautogui.keyUp('up')
 
     if(len(contoursG) == 2):
         x1, y1, w1, h1 = cv2.boundingRect(contoursG[0])
@@ -77,10 +75,14 @@ while cam.isOpened():
             if(right == 1):
                 pyautogui.keyUp('right')
             right = 0
-        elif(angle < -12):
+        elif(angle < -10 and angle > -14):
+            pyautogui.press('right')
+        elif(angle > 10 and angle < 14):
+            pyautogui.press('left')
+        elif(angle < -14):
             pyautogui.keyDown('right')
             right = 1
-        elif(angle > 12):
+        elif(angle > 14):
             pyautogui.keyDown('left')
             right = -1
         cv2.putText(img, str(angle), (50, 50),
